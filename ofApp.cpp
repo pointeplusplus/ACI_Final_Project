@@ -24,6 +24,28 @@ void ofApp::update(){
     	for(unsigned int p2 = p+1; p2 < particleSystem.size(); p2++){
     		if(particleSystem[p].distance(particleSystem[p2]) < 2 * STARTING_RADIUS_SIZE){
 
+    			ofVec2f p_speed = particleSystem[p].getSpeed();
+    			ofVec2f p2_speed = particleSystem[p2].getSpeed();
+
+    			double new_x1 = (p_speed.x * (1 - 1) + (2 * 1 * p2_speed.x)) / (1 + 1);
+				double new_y1 = (p_speed.y * (1 - 1) + (2 * 1 * p2_speed.y)) / (1 + 1);
+				double new_x2 = (p2_speed.x * (1 - 1) + (2 * 1 * p_speed.x)) / (1 + 1);
+				double new_y2 = (p2_speed.y * (1 - 1) + (2 * 1 * p_speed.y)) / (1 + 1);
+
+				particleSystem[p].setSpeed(ofVec2f(new_x1,new_y1));
+				particleSystem[p2].setSpeed(ofVec2f(new_x2,new_y2));
+    			
+    			/*
+    			ofVec2f p_speed = particleSystem[p].getSpeed();
+    			p_speed.x *= -1;
+    			p_speed.y *= -1;
+    			particleSystem[p].setSpeed(p_speed);
+
+    			ofVec2f p2_speed = particleSystem[p2].getSpeed();
+    			p2_speed.x *= -1;
+    			p2_speed.y *= -1;
+    			particleSystem[p2].setSpeed(p2_speed);
+    			*/
     		}
     	}
     }

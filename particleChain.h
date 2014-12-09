@@ -11,7 +11,8 @@ public:
 	void update();
 	void draw();
 
-
+	ofVec2f getSpeed();
+	void setSpeed(ofVec2f new_speed);
 
 	void addParticle(ofVec2f pos);
 	void addNewLocation();

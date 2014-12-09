@@ -53,6 +53,14 @@ void ParticleChain::draw(){
 	}
 }
 
+ofVec2f ParticleChain::getSpeed(){
+	return speed;
+}
+
+void ParticleChain::setSpeed(ofVec2f new_speed){
+	speed = new_speed;
+}
+
 void ParticleChain::addParticle(ofVec2f pos){
 
 	particles.push_back(Particle(pos));
