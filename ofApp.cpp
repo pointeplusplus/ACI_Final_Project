@@ -11,7 +11,12 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 
-	// Draw all of the particles
+	// Calculate new locations for the particle chains
+	for(unsigned int p = 0; p < particleSystem.size(); p++){
+    	particleSystem[p].addNewLocations();
+    }
+
+	// Update all of the particles
     for(unsigned int p = 0; p < particleSystem.size(); p++){
     	particleSystem[p].update();
     }
@@ -43,12 +48,6 @@ void ofApp::keyReleased(int key){
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
 
-	for(int p = 0; p < particleSystem.size(); p++){
-        //if(particleSystem.size() >= i+1){
-            particleSystem[p].addParticle(ofVec2f(x,y));
-        //}
-        
-    }
 	/*
 	//FOR TESTING
     for(int i = 0; i < 10; i++){
@@ -84,7 +83,7 @@ void ofApp::mousePressed(int x, int y, int button){
 void ofApp::mouseReleased(int x, int y, int button){
 
 	ofVec3f color = ofVec3f(ofRandom(0,255),ofRandom(0,255),ofRandom(0,255));
-	particleSystem.push_back(ParticleChain(color));
+	particleSystem.push_back(ParticleChain(color,0, 0, ofVec2f(x, y)));
 }
 
 //--------------------------------------------------------------

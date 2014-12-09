@@ -5,29 +5,32 @@ ParticleChain::ParticleChain(){
 
 }
 
-ParticleChain::ParticleChain(ofVec3f color){
+ParticleChain::ParticleChain(ofVec3f color, double x, double y, ofVec2f starting_pos){
 	this->color = color;
-	//std::cout << "color of chain: " << this->color.x << " " << this->color.y << " " << this->color.z << std::endl;
-}
+	
+	speedX = x;
+	speedY = y;
 
-void ParticleChain::addParticle(ofVec2f pos){
-	particles.push_back(Particle(pos));
+	current_pos = starting_pos;
+
+	//FOR TESTING
+	speedX = 10;
+	speedY = 4;
+
+	addParticle(starting_pos);
+
 }
 
 void ParticleChain::update(){
 
+	std::cout << "Particle chain update.  Length" << particles.size() << std::endl;
 	bool to_delete = false;
 	for(list<Particle>::iterator p = particles.begin(); p != particles.end(); ){
-		//FOR TESTING
-//		std::cout << "Updating Particle: " << std::endl;
-
 
 		to_delete = p->update();
-//		if(to_delete == true) std::cout << "    delete" << endl; 
 		
 		if(to_delete){
 			p = particles.erase(p);
-			//if(p == particles.end()) break;
 		}
 		else { //increment if not erasing
 			if(p != particles.end()){
@@ -47,5 +50,16 @@ void ParticleChain::draw(){
 //		std::cout << "    draw a particle:" << std::endl;		
 		p->draw(color);
 	}
+}
 
+void ParticleChain::addParticle(ofVec2f pos){
+
+	particles.push_back(Particle(pos));
+}
+
+void ParticleChain::addNewLocations(){
+
+	ofVec2f new_pos = ofVec2f(current_pos.x + speedX, current_pos.y + speedY);
+	current_pos = new_pos;
+	addParticle(new_pos);
 }

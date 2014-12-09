@@ -16,4 +16,5 @@ private:
 	int frameNumber; //how many frames this particle has been around for
 	double currentSize;
 	double currentAlpha;
+
 };
