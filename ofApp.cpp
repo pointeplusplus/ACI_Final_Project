@@ -6,19 +6,26 @@ void ofApp::setup(){
 	mousePressX = 0;
 	mousePressY = 0;
 
+	ofSetFullscreen(true);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 
-	// Calculate new locations for the particle chains
-	for(unsigned int p = 0; p < particleSystem.size(); p++){
-    	particleSystem[p].addNewLocations();
-    }
-
 	// Update all of the particles
     for(unsigned int p = 0; p < particleSystem.size(); p++){
     	particleSystem[p].update();
+    }
+
+    // Check for collisions
+    for(unsigned int p = 0; p < particleSystem.size(); p++){
+    	// Check against all other particles (that weren't already checked)
+    	for(unsigned int p2 = p+1; p2 < particleSystem.size(); p2++){
+    		if(particleSystem[p].distance(particleSystem[p2]) < 2 * STARTING_RADIUS_SIZE){
+
+    		}
+    	}
     }
 }
 
@@ -34,10 +41,7 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	/*
-	if (key == keycode_Esc || key == keycode_Q || key == keycode_q) {
-        exit();
-    }*/
+
 }
 
 //--------------------------------------------------------------
@@ -69,21 +73,19 @@ void ofApp::mousePressed(int x, int y, int button){
 
 	mousePressX = x;
 	mousePressY = y;
-	/*
-	//FOR TESTING
-    for(int i = 0; i < 10; i++){
-        ofVec3f color = ofVec3f(ofRandom(0,255),ofRandom(0,255),ofRandom(0,255));
-        //std::cout << "color for chain: " << color.x << " " << color.y << " " << color.z << std::endl;
-        particleSystem.push_back(ParticleChain(color));
-    }
-    */
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
 
+	int x_diff = x - mousePressX;
+	int y_diff = y - mousePressY;
+
+	double speedX = x_diff / SPEED_CONSTANT;
+	double speedY = y_diff / SPEED_CONSTANT;
+
 	ofVec3f color = ofVec3f(ofRandom(0,255),ofRandom(0,255),ofRandom(0,255));
-	particleSystem.push_back(ParticleChain(color,0, 0, ofVec2f(x, y)));
+	particleSystem.push_back(ParticleChain(color, ofVec2f(speedX, speedY), ofVec2f(x, y)));
 }
 
 //--------------------------------------------------------------

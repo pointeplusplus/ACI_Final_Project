@@ -34,7 +34,7 @@ void Particle::draw(ofVec3f color){
 
 bool Particle::update(){
 
-
+	// Change the size an opacity
 	frameNumber++;
 	currentSize *= RADIUS_REDUCTION;
 	currentAlpha *= ALPHA_STEP_SIZE;
