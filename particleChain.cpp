@@ -16,6 +16,8 @@ ParticleChain::ParticleChain(ofVec3f color, ofVec2f start_speed, ofVec2f startin
 
 	addParticle(starting_pos);
 
+	current_radius = STARTING_RADIUS_SIZE;
+
 }
 
 void ParticleChain::update(){
@@ -23,10 +25,10 @@ void ParticleChain::update(){
 	addNewLocation();
 
 	// Have it bounce off of the walls
-	if (current_pos.x <= STARTING_RADIUS_SIZE/2.0 || current_pos.x >= ofGetWidth() - STARTING_RADIUS_SIZE/2.0){
+	if (current_pos.x <= current_radius/2.0 || current_pos.x >= ofGetWidth() - current_radius/2.0){
 		speed.x *= -1;
 	}
-	if (current_pos.y <= STARTING_RADIUS_SIZE/2.0 || current_pos.y >= ofGetHeight() - STARTING_RADIUS_SIZE/2.0){
+	if (current_pos.y <= current_radius/2.0 || current_pos.y >= ofGetHeight() - current_radius/2.0){
 		speed.y *= -1;
 	}
 
@@ -61,9 +63,25 @@ void ParticleChain::setSpeed(ofVec2f new_speed){
 	speed = new_speed;
 }
 
+double ParticleChain::getMass(){
+	return PI * pow(current_radius, 2);
+}
+
+ofVec3f ParticleChain::getColor(){
+	return color;
+}
+
+double ParticleChain::getRadius(){
+	return current_radius;
+}
+
+void ParticleChain::setRadius(double new_radius){
+	current_radius = new_radius;
+}
+
 void ParticleChain::addParticle(ofVec2f pos){
 
-	particles.push_back(Particle(pos));
+	particles.push_back(Particle(pos, current_radius));
 }
 
 void ParticleChain::addNewLocation(){
@@ -74,5 +92,11 @@ void ParticleChain::addNewLocation(){
 
 double ParticleChain::distance(ParticleChain other){
 
-	return sqrt( pow(current_pos.x - other.current_pos.x , 2) + pow (current_pos.y - other.current_pos.y , 2) );
+	//return sqrt( pow(current_pos.x - other.current_pos.x , 2) + pow (current_pos.y - other.current_pos.y , 2) );
+	return distance(other.current_pos);
+}
+
+double ParticleChain::distance(ofVec2f other){
+
+	return sqrt( pow(current_pos.x - other.x, 2) + pow (current_pos.y - other.y, 2) );
 }

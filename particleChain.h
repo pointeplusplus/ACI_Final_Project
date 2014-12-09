@@ -13,10 +13,15 @@ public:
 
 	ofVec2f getSpeed();
 	void setSpeed(ofVec2f new_speed);
+	double getMass();
+	ofVec3f getColor();
+	double getRadius();
+	void setRadius(double new_radius);
 
 	void addParticle(ofVec2f pos);
 	void addNewLocation();
 	double distance(ParticleChain other);
+	double distance(ofVec2f other);
 
 private:
 
@@ -26,5 +31,7 @@ private:
 	ofVec2f speed;
 
 	ofVec2f current_pos;
+
+	double current_radius;
 
 };

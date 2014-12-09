@@ -10,7 +10,7 @@ class Particle{
 
 public:
 	Particle();
-	Particle(ofVec2f loc);
+	Particle(ofVec2f loc, double radius);
 
 	void draw(ofVec3f color);
 	bool update();

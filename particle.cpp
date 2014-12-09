@@ -1,20 +1,15 @@
 
 #include "particle.h"
 
-#define STARTING_RADIUS_SIZE 40
-#define ALPHA_STEP_SIZE .93
-#define RADIUS_REDUCTION .96
-
-
 Particle::Particle(){
 	std::cout << "Initialize your parcticles, please!!" << std::endl;
 }
 
-Particle::Particle(ofVec2f loc){
+Particle::Particle(ofVec2f loc, double radius){
 
 	location = loc;
 	frameNumber = 0;
-	currentSize = STARTING_RADIUS_SIZE;
+	currentSize = radius;
 	currentAlpha = 255;
 }
 

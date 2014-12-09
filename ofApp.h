@@ -27,4 +27,6 @@ class ofApp : public ofBaseApp{
 		
 		int mousePressX;
 		int mousePressY;
+
+		bool add_new_particle;
 };
