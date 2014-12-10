@@ -55,7 +55,33 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	
+	// Add wind
+	if(key == OF_KEY_LEFT){
+		for(unsigned int p = 0; p < particleSystem.size(); p++){
+			particleSystem[p].setSpeed(ofVec2f(particleSystem[p].getSpeed().x - 10, particleSystem[p].getSpeed().y));
+		}
+	}
+	else if (key == OF_KEY_RIGHT){
+		for(unsigned int p = 0; p < particleSystem.size(); p++){
+			particleSystem[p].setSpeed(ofVec2f(particleSystem[p].getSpeed().x + 10, particleSystem[p].getSpeed().y));
+		}
+	} 
+	else if(key == OF_KEY_UP){
+		for(unsigned int p = 0; p < particleSystem.size(); p++){
+			particleSystem[p].setSpeed(ofVec2f(particleSystem[p].getSpeed().x, particleSystem[p].getSpeed().y - 10));
+		}
+	}
+	else if(key == OF_KEY_DOWN){
+		for(unsigned int p = 0; p < particleSystem.size(); p++){
+			particleSystem[p].setSpeed(ofVec2f(particleSystem[p].getSpeed().x, particleSystem[p].getSpeed().y + 10));
+		}
+	}
+	else if(key == 's'){
+		for(unsigned int p = 0; p < particleSystem.size(); p++){
+			particleSystem[p].setSpeed(ofVec2f(particleSystem[p].getSpeed().x/2.0, particleSystem[p].getSpeed().y/2.0));
+		}
+	}
 }
 
 //--------------------------------------------------------------
